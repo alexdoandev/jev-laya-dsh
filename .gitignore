@@ -1,0 +1,17 @@
+# dependencies / build
+node_modules/
+package-lock.json.bak
+benchmarks/rust/target/
+onnx-rust-server/target/
+
+# model weights — export per README (do not commit 1.3GB)
+onnx-export/fp32/
+onnx-export/**/*.onnx
+onnx-export/**/*.onnx.data
+
+# runtime output
+eval/reports/
+*.log
+.DS_Store
+
+onnx-export/fp32-legacy/

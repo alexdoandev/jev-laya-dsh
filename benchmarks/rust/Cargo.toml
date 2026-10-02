@@ -1,0 +1,15 @@
+[package]
+name = "jev-laya-bench"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "Runtime benchmark: run the exported Laya ONNX graph through tract (pure-Rust inference)"
+
+[dependencies]
+ndarray = "0.17.2"
+ort = { version = "2.0.0-rc.10", features = ["load-dynamic"] }
+tract-onnx = "0.21"
+
+[profile.release]
+opt-level = 3
+lto = true

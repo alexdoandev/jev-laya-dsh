@@ -1,0 +1,11 @@
+* text=auto
+*.md text
+*.mjs text eol=lf
+*.js text eol=lf
+*.py text eol=lf
+*.json text
+*.jsonl text
+*.yml text
+*.yaml text
+*.onnx binary
+*.onnx.data binary

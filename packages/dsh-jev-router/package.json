@@ -1,0 +1,8 @@
+{
+  "name": "@local/dsh-jev-router",
+  "description": "User -> Jev(Laya) -> Agent pre-turn router: classifies every user prompt with the warm local Laya decision server and injects the routing verdict as a notice message; optional risk gate on tool calls.",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "lib/index.js"
+}

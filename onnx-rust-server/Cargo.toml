@@ -1,0 +1,17 @@
+[package]
+name = "laya-rust-server"
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+description = "Drop-in Rust/ort replacement for the Laya warm server (decide/mcp/health/admin, hybrid residency)"
+
+[dependencies]
+tiny_http = "0.12"
+tokenizers = { version = "0.21", default-features = false, features = ["onig"] }
+ort = { version = "2.0.0-rc.13", features = ["load-dynamic"] }
+ndarray = "0.17"
+serde_json = { version = "1", features = ["preserve_order"] }
+
+[profile.release]
+opt-level = 3
+lto = true

@@ -1,0 +1,61 @@
+{"text": "giải thích cho mình closure trong javascript là gì", "gold": "tier1a"}
+{"text": "khác biệt giữa SQL và NoSQL là gì", "gold": "tier1a"}
+{"text": "dịch đoạn này sang tiếng anh: hệ thống đã sẵn sàng triển khai", "gold": "tier1a"}
+{"text": "tóm tắt giúp bài blog về kubernetes này", "gold": "tier1a"}
+{"text": "so sánh React và Vue ở mức khái niệm giúp tôi", "gold": "tier1a"}
+{"text": "what is a race condition", "gold": "tier1a"}
+{"text": "giải thích big-o notation cho người mới", "gold": "tier1a"}
+{"text": "offset trong SQL hoạt động thế nào", "gold": "tier1a"}
+{"text": "cho tôi ý tưởng đặt tên project về thương mại điện tử", "gold": "tier1a"}
+{"text": "hướng dẫn cách đọc stack trace", "gold": "tier1a"}
+{"text": "khái niệm idempotent nghĩa là gì", "gold": "tier1a"}
+{"text": "giải thích cách https hoạt động", "gold": "tier1a"}
+{"text": "so sánh docker và virtual machine", "gold": "tier1a"}
+{"text": "tóm tắt nội dung design pattern strategy", "gold": "tier1a"}
+{"text": "brainstorm giúp tôi vài tên hàm cho module thanh toán", "gold": "tier1a"}
+{"text": "câu hỏi: chuẩn REST có mấy method chính", "gold": "tier1a"}
+{"text": "giải thích sự khác biệt giữa process và thread", "gold": "tier1a"}
+{"text": "định nghĩa giúp tôi field trong machine learning là gì", "gold": "tier1a"}
+{"text": "translate sang tiếng việt: the deployment pipeline is green", "gold": "tier1a"}
+{"text": "ý tưởng tối ưu câu sql thuần túy trên giấy, chưa cần chạy", "gold": "tier1a"}
+{"text": "sửa giúp hàm calculate trong utils.js bị sai tổng", "gold": "tier1b"}
+{"text": "fix bug login không redirect về dashboard", "gold": "tier1b"}
+{"text": "thêm function validate email vào file helpers", "gold": "tier1b"}
+{"text": "chạy test rồi báo kết quả cho tôi", "gold": "tier1b"}
+{"text": "refactor hàm parseData này cho gọn lại", "gold": "tier1b"}
+{"text": "đổi tên biến trong module auth cho dễ đọc", "gold": "tier1b"}
+{"text": "mở file config.yaml xem giúp nó đang set gì", "gold": "tier1b"}
+{"text": "commit các thay đổi vừa rồi giúp tôi", "gold": "tier1b"}
+{"text": "viết unit test cho hàm parseDate", "gold": "tier1b"}
+{"text": "format lại file index.ts theo prettier", "gold": "tier1b"}
+{"text": "grep tìm tất cả chỗ gọi api /users", "gold": "tier1b"}
+{"text": "thêm CLI arg --port cho script dev", "gold": "tier1b"}
+{"text": "cập nhật version react trong package.json", "gold": "tier1b"}
+{"text": "xử lý lỗi undefined khi parse response json", "gold": "tier1b"}
+{"text": "đọc giúp tôi file docker-compose.yml này cấu hình gì", "gold": "tier1b"}
+{"text": "sửa typo trong chuỗi thông báo lỗi", "gold": "tier1b"}
+{"text": "build lại project rồi cho tôi log", "gold": "tier1b"}
+{"text": "thêm endpoint /health đơn giản vào server.js", "gold": "tier1b"}
+{"text": "merge branch feature/login vào nhánh hiện tại", "gold": "tier1b"}
+{"text": "chạy lệnh lint và sửa hết warning", "gold": "tier1b"}
+{"text": "refactor kiến trúc microservices sang event-driven", "gold": "tier2"}
+{"text": "thiết kế hệ thống thanh toán chịu tải cao", "gold": "tier2"}
+{"text": "lập kế hoạch migration database từ mysql sang postgres từng bước", "gold": "tier2"}
+{"text": "phân tích tradeoff giữa kafka và rabbitmq cho hệ thống của chúng ta", "gold": "tier2"}
+{"text": "review bảo mật toàn bộ api gateway", "gold": "tier2"}
+{"text": "debug race condition phức tạp giữa 3 service", "gold": "tier2"}
+{"text": "plan tích hợp CRM với ERP cho công ty", "gold": "tier2"}
+{"text": "đánh giá xem có nên tách monolith thành service không", "gold": "tier2"}
+{"text": "chiến lược scale hệ thống từ 1k lên 100k user", "gold": "tier2"}
+{"text": "thiết kế caching layer cho toàn hệ thống", "gold": "tier2"}
+{"text": "kế hoạch refactor cross-service ảnh hưởng nhiều team", "gold": "tier2"}
+{"text": "quyết định kiến trúc lưu trữ log tập trung", "gold": "tier2"}
+{"text": "thiết kế chiến lược multi-tenant cho SaaS", "gold": "tier2"}
+{"text": "phân tích nguyên nhân rò rỉ bộ nhớ ở tầng worker", "gold": "tier2"}
+{"text": "thiết kế luồng xác thực otp an toàn cho app ngân hàng", "gold": "tier2"}
+{"text": "lên kế hoạch rollout tính năng mới cho 2 triệu user", "gold": "tier2"}
+{"text": "thiết kế contract giữa service order và inventory", "gold": "tier2"}
+{"text": "đánh giá security của luồng oauth hiện tại", "gold": "tier2"}
+{"text": "strategy tối ưu chi phí cloud cho cụm cluster này", "gold": "tier2"}
+{"text": "thiết kế data pipeline xử lý realtime 50k event/giây", "gold": "tier2"}
+{"text": "plan kiến trúc chia tầng cho app mobile + backend", "gold": "tier2"}

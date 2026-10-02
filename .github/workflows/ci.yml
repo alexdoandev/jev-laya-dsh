@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Node syntax check (all JS/MJS files)
+        run: |
+          for f in $(git ls-files '*.js' '*.mjs'); do node --check "$f"; done
+      - name: Valid JSON
+        run: |
+          for f in $(git ls-files '*.json'); do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))"; done
+      - name: Eval-set JSONL valid (61 gold prompts)
+        run: |
+          node -e "
+            const lines = require('fs').readFileSync('eval/eval-set.jsonl','utf8').trim().split('\n');
+            const items = lines.map(l => JSON.parse(l));
+            const tiers = new Set(items.map(i => i.gold));
+            if (items.length < 60) throw new Error('eval-set too small: ' + items.length);
+            for (const t of ['tier1a','tier1b','tier2']) if (!tiers.has(t)) throw new Error('missing tier ' + t);
+            console.log('eval-set OK:', items.length, 'prompts');
+          "
+      - name: Python server syntax check
+        run: python3 -c "import ast; ast.parse(open('laya-server/laya_warm_server.py').read()); ast.parse(open('onnx-export/export_onnx_multilingual.py').read())"
+      - name: No heavy files in tree
+        run: |
+          ! git ls-files | grep -E "\.onnx$|\.onnx\.data$|^node_modules/"
+      - name: Optional blocklist scan (repo secret BLOCKLIST — skipped when unset)
+        env:
+          BLOCKLIST: ${{ secrets.BLOCKLIST }}
+        run: |
+          if [ -z "$BLOCKLIST" ]; then echo "BLOCKLIST secret not set — scan skipped"; exit 0; fi
+          ! git grep -l -iE "$BLOCKLIST" -- . || exit 1

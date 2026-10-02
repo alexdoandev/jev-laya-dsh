@@ -1,0 +1,19 @@
+{
+  "name": "@jev-laya-dsh/onnx-server",
+  "version": "1.0.0",
+  "description": "Drop-in Node/ONNX warm server for the Laya System-1 decision model (protocol-compatible with the Python reference server: /decide, /mcp, /health, /admin/*)",
+  "private": true,
+  "type": "module",
+  "main": "laya-onnx-server.mjs",
+  "scripts": {
+    "start": "node laya-onnx-server.mjs",
+    "postinstall": "node patches/apply-multilingual-patch.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@receptron/laya": "^0.1.2"
+  }
+}
