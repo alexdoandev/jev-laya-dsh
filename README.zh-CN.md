@@ -1,7 +1,7 @@
 # jev-laya-dsh
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![ci](https://github.com/alexdoandev/dsh-jev-meta/actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
+[![ci](https://github.com/alexdoandev/jev-laya-dsh/actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
 ![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen)
 ![Runtime](https://img.shields.io/badge/runtime-ONNX%20%7C%20torch-blue)
 
@@ -59,7 +59,7 @@ User
 ## 安装
 
 ```bash
-git clone https://github.com/alexdoandev/dsh-jev-meta.git
+git clone https://github.com/alexdoandev/jev-laya-dsh.git
 cd dsh-jev-meta
 
 # 1) 权重（一次性）
