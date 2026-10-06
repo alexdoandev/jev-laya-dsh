@@ -1,0 +1,35 @@
+{
+  "name": "dsh-jev-router",
+  "version": "0.1.0",
+  "description": "User -> Jev(Laya) -> Agent: System-1 decision layer for DeepSeek Harness — prompt router, risk gate, per-tier model swap via a local calibrated decision model (Laya)",
+  "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh-plugin",
+    "deepseek-harness",
+    "laya",
+    "jev",
+    "llm-routing",
+    "system-1",
+    "guardrails",
+    "local-inference"
+  ],
+  "author": "alexdoandev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexdoandev/jev-laya-dsh.git",
+    "directory": "packages/dsh-jev-router"
+  },
+  "homepage": "https://github.com/alexdoandev/jev-laya-dsh#readme",
+  "bugs": {
+    "url": "https://github.com/alexdoandev/jev-laya-dsh/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
