@@ -21,7 +21,7 @@ jobs:
           mkdir -p ort-dylib && cd ort-dylib
           npm install onnxruntime-node@1.30.0 --no-save --no-audit --no-fund
           DYLIB=$(find node_modules/onnxruntime-node/bin -name "libonnxruntime*.dylib" | head -1)
-          cp "$DYLIB" ../
+          cp "$DYLIB" .
       - name: Package
         run: |
           TAG="${GITHUB_REF_NAME}"
