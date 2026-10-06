@@ -40,12 +40,8 @@ from huggingface_hub import HfApi
 repo, bundle = sys.argv[1], sys.argv[2]
 api = HfApi(token=os.environ["HF_TOKEN"])
 api.create_repo(repo, repo_type="model", private=False, exist_ok=True)
-api.upload_file(
-    path_or_fileobj=os.path.join(os.path.dirname(bundle), "MODELCARD.md"),
-    path_in_repo="README.md",
-    repo_id=repo,
-    repo_type="model",
-)
+# upload_folder ships everything in the bundle, including README.md
+# (the model card copied there by this script)
 api.upload_folder(folder_path=bundle, repo_id=repo, repo_type="model")
 print("done → https://huggingface.co/" + repo)
 PY
