@@ -208,5 +208,5 @@ Rust 是"完全去掉服务进程"嵌入决策层的最强选项。
 ## 许可证
 
 MIT —— 见 [LICENSE](LICENSE)。第三方组件保留各自许可（Laya 权重：Apache-2.0，
-© Convai Innovations —— 本仓库不分发权重；`@receptron/laya`：MIT）。"Jev" 为 TypeSafe
+© Convai Innovations —— 多语 ONNX 包发布于 [alexdoandev/laya-multilingual-onnx](https://huggingface.co/alexdoandev/laya-multilingual-onnx)；`@receptron/laya`：MIT）。"Jev" 为 TypeSafe
 产品；本项目仅使用开源、Jev 兼容的 Laya 模型作为独立本地组件。

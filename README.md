@@ -71,9 +71,10 @@ the work only they can do.
 git clone https://github.com/alexdoandev/jev-laya-dsh.git
 cd dsh-jev-meta
 
-# 1) weights (one-time)
+# 1) weights — ready-made multilingual ONNX bundle (one-time, ~1.3 GB):
+#    https://huggingface.co/alexdoandev/laya-multilingual-onnx
 HF_HUB_OFFLINE=0 python3 -c "from huggingface_hub import snapshot_download; \
-  snapshot_download('convaiinnovations/laya-multilingual')"
+  snapshot_download('alexdoandev/laya-multilingual-onnx')"
 
 # 2) ONNX bundle (one-time; needs torch)
 python3 onnx-export/export_onnx_multilingual.py \
@@ -231,6 +232,6 @@ before/after numbers from `eval/run-eval.js`.
 ## License
 
 MIT — see [LICENSE](LICENSE). Third-party components keep their own licenses
-(Laya weights: Apache-2.0, © Convai Innovations — weights are not redistributed here;
+(Laya weights: Apache-2.0, © Convai Innovations — multilingual ONNX bundle published at [alexdoandev/laya-multilingual-onnx](https://huggingface.co/alexdoandev/laya-multilingual-onnx);
 `@receptron/laya`: MIT). "Jev" is a TypeSafe product; this project uses only the
 open, Jev-compatible Laya model as an independent local component.

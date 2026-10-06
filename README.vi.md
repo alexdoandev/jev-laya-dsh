@@ -221,6 +221,6 @@ trước/sau từ `eval/run-eval.js`.
 ## Giấy phép
 
 MIT — xem [LICENSE](LICENSE). Các thành phần third-party giữ giấy phép riêng
-(weights Laya: Apache-2.0, © Convai Innovations — không phân phối lại weights trong
-repo; `@receptron/laya`: MIT). "Jev" là sản phẩm của TypeSafe; project này chỉ dùng
+(weights Laya: Apache-2.0, © Convai Innovations — bundle ONNX đa ngữ phát hành tại
+[alexdoandev/laya-multilingual-onnx](https://huggingface.co/alexdoandev/laya-multilingual-onnx); `@receptron/laya`: MIT). "Jev" là sản phẩm của TypeSafe; project này chỉ dùng
 Laya — bản mở, tương thích Jev — như một thành phần độc lập chạy local.
