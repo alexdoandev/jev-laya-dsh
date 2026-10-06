@@ -1,0 +1,42 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos-arm64:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build (locked)
+        working-directory: onnx-rust-server
+        run: cargo build --release --locked
+      - name: Fetch onnxruntime dylib
+        run: |
+          mkdir -p ort-dylib && cd ort-dylib
+          npm install onnxruntime-node@1.30.0 --no-save --no-audit --no-fund
+          DYLIB=$(find node_modules/onnxruntime-node/bin -name "libonnxruntime*.dylib" | head -1)
+          cp "$DYLIB" ../
+      - name: Package
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          PKG="laya-rust-server-${TAG}-macos-arm64"
+          mkdir -p "${PKG}"
+          cp onnx-rust-server/target/release/laya-rust-server "${PKG}/"
+          cp ort-dylib/libonnxruntime*.dylib "${PKG}/"
+          cp onnx-rust-server/dist-files/RUN.md "${PKG}/"
+          cp onnx-rust-server/dist-files/ai.local.laya-warm.plist.example "${PKG}/"
+          tar -czf "${PKG}.tar.gz" "${PKG}"
+          shasum -a 256 "${PKG}.tar.gz" > "${PKG}.tar.gz.sha256"
+      - name: Attach to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            laya-rust-server-*.tar.gz
+            laya-rust-server-*.tar.gz.sha256
+          generate_release_notes: true

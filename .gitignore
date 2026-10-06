@@ -15,3 +15,4 @@ eval/reports/
 .DS_Store
 
 onnx-export/fp32-legacy/
+*.tar.gz
