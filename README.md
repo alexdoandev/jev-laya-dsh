@@ -2,6 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![ci](https://github.com/alexdoandev/jev-laya-dsh/actions/workflows/ci.yml/badge.svg)](../../actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/dsh-jev-router)](https://www.npmjs.com/package/dsh-jev-router)
+[![HF Model](https://img.shields.io/badge/%F0%9F%A4%97-laya--multilingual--onnx-blue)](https://huggingface.co/alexdoandev/laya-multilingual-onnx)
+[![Release](https://img.shields.io/github/v/release/alexdoandev/jev-laya-dsh)](../../releases/latest)
 ![Node](https://img.shields.io/badge/node-%E2%89%A520-brightgreen)
 ![Runtime](https://img.shields.io/badge/runtime-ONNX%20%7C%20torch-blue)
 
