@@ -33,7 +33,7 @@ jobs:
         run: python3 -c "import ast; ast.parse(open('laya-server/laya_warm_server.py').read()); ast.parse(open('onnx-export/export_onnx_multilingual.py').read())"
       - name: No heavy files in tree
         run: |
-          ! git ls-files | grep -E "\.onnx$|\.onnx\.data$|^node_modules/"
+          ! git ls-files | grep -E "\.onnx$|\.onnx\.data$|^node_modules/|\.dylib$|^dist/|laya-rust-server$"
       - name: Optional blocklist scan (repo secret BLOCKLIST — skipped when unset)
         env:
           BLOCKLIST: ${{ secrets.BLOCKLIST }}

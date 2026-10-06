@@ -16,3 +16,5 @@ eval/reports/
 
 onnx-export/fp32-legacy/
 *.tar.gz
+dist/
+libonnxruntime*
