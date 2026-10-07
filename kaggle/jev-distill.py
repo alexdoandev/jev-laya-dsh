@@ -22,20 +22,20 @@ import os, json, time, random
 SEED = 42
 random.seed(SEED)
 
-TEACHER = os.environ.get("TEACHER", "glm")   # pdecider | quyet | glm | gold
+TEACHER = os.environ.get("TEACHER", "glm")
+# local open teachers (chạy ngay trong notebook, không cần key):
+#   quyet-large  — chinhnc/Quyet-1.0-Large (31B, bf16 62.5GB — KHÔNG vừa T4x2;
+#                  dùng nếu có A100/80GB hoặc bản GGUF qua llama.cpp)
+#   quyet-medium — chinhnc/Quyet-1.0-Medium (nhẹ hơn, khuyên dùng trên Kaggle)
+# API teachers (OpenAI-compatible):
+#   pdecider — Perplexity Decider v1.1 (27B) · glm — GLM-flash · gold — chỉ nhãn vàng
 PRESETS = {
-    # teacher: (base_url_env, base_url_default, key_env, model_env, model_default)
     "pdecider": ("PDECIDER_BASE", "https://api.perplexity.ai",
                  "PDECIDER_KEY", "PERPLEXITY_DECIDER_KEY", "perplexity-decider-v1.1-27b"),
-    "quyet":    ("QUYET_BASE", "https://api.quyet.ai/v1",
-                 "QUYET_KEY", "QUYET_KEY", "quyet-1.0-large"),
     "glm":      ("GLM_BASE", "https://open.bigmodel.cn/api/paas/v4",
                  "GLM_KEY", "ZAI_API_KEY", "glm-5.3-flash"),
 }
-base_env, base_def, key_env, key_def, model_def = PRESETS[TEACHER]
-TEACHER_BASE = os.environ.get(base_env, base_def)
-TEACHER_KEY = os.environ.get(key_env, "")
-TEACHER_MODEL = os.environ.get("TEACHER_MODEL", model_def)
+TEACHER_BASE = TEACHER_KEY = TEACHER_MODEL = ""
 STUDENT_ID = "jhu-clsp/mmBERT-base"
 MAX_LABEL = int(os.environ.get("MAX_LABEL", "500"))  # giới hạn quota teacher
 
@@ -90,30 +90,53 @@ if pathlib.Path(CACHE).exists():
     for l in open(CACHE):
         r = json.loads(l); labeled[r["text"]] = r["label"]
 
-if TEACHER != "gold" and rows:
-    from openai import OpenAI
+LOCAL_QUYET = {"quyet-large": "chinhnc/Quyet-1.0-Large",
+               "quyet-medium": "chinhnc/Quyet-1.0-Medium"}
+
+def teacher_predict(state_text: str) -> tuple[str, float]:
+    """Trả về (tier, confidence). Local Quyet dùng cùng typed-question contract."""
+    if TEACHER in LOCAL_QUYET:
+        r = TEACHER_MODEL.predict({"state": state_text[:6000]}, ROUTER_Q)
+        a = r["answers"]["task_type"]
+        conf = a.get("confidence", 0)
+        return a["choice"], float(conf)
     client = OpenAI(base_url=TEACHER_BASE, api_key=TEACHER_KEY or "EMPTY")
-    model = TEACHER_MODEL
-    SYS = ('Bạn là bộ phân loại yêu cầu gửi cho coding agent. Trả về DUY NHẤT JSON '
-           '{"tier":"tier1a|tier1b|tier2","confidence":0..1}. '
-           'tier1a=chat/Q&A thuần; tier1b=đọc/sửa file, chạy lệnh, test; '
-           'tier2=kiến trúc/plan/debug phức tạp.')
+    rsp = client.chat.completions.create(
+        model=TEACHER_MODEL, temperature=0, max_tokens=60,
+        messages=[{"role": "system", "content": ROUTER_SYS},
+                  {"role": "user", "content": state_text[:1500]}])
+    raw = rsp.choices[0].message.content.strip()
+    j = json.loads(raw[raw.find("{"):raw.rfind("}") + 1])
+    return j.get("tier", ""), float(j.get("confidence", 0))
+
+ROUTER_Q = {
+    "task_type": {"type": "choice",
+        "instructions": "Classify the user request to a coding agent.",
+        "criteria": {"chat_qa": "Pure text question, explanation, translation, summary; no code or file changes",
+                     "code_task": "Reading, editing, writing code/files, running commands or tests",
+                     "architecture": "System design, multi-step planning, complex debugging, integration decisions"}},
+    "needs_code_model": {"type": "noul",
+        "instructions": "Does the request require touching code, files, commands, or tests (as opposed to pure chat)?"},
+    "urgency": {"type": "score", "instructions": "How urgent or time-critical is this request?",
+        "criteria": ["not urgent", "somewhat urgent", "urgent", "critical"]},
+}
+
+if TEACHER in LOCAL_QUYET:
+    !pip -q install "quyet[multi-gpu]" bitsandbytes accelerate
+    import quyet
+    TEACHER_MODEL = quyet.load(LOCAL_QUYET[TEACHER])
+elif TEACHER != "gold":
+    from openai import OpenAI
+    _ = TEACHER_BASE, TEACHER_KEY, TEACHER_MODEL
     cache_f = open(CACHE, "a")
     budget = MAX_LABEL
     for r in rows:
         if r["text"] in labeled or budget <= 0:
             continue
-        if budget == MAX_LABEL:  # in một lần
+        if budget == MAX_LABEL:
             print("teacher labeling bắt đầu…")
         try:
-            rsp = client.chat.completions.create(
-                model=model, temperature=0, max_tokens=60,
-                messages=[{"role": "system", "content": SYS},
-                          {"role": "user", "content": r["text"][:1500]}])
-            raw = rsp.choices[0].message.content.strip()
-            j = json.loads(raw[raw.find("{"):raw.rfind("}") + 1])
-            label = j.get("tier", "")
-            conf = float(j.get("confidence", 0))
+            label, conf = teacher_predict(r["text"][:1500])
         except Exception as e:
             print("teacher error:", e); break
         if label in LABEL2ID:

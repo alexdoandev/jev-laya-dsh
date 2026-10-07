@@ -14,11 +14,24 @@ Kaggle GPU**, xuất ONNX drop-in cho server.
    - Internet: **On**
 4. **Add-ons → Secrets** — thêm các secret teacher bạn có:
 
+## Teacher — Quyet-1.0-Large (mở, khuyên dùng)
+
+`TEACHER = "quyet-large"` — **không cần key nào**: model mở
+[chinhnc/Quyet-1.0-Large](https://huggingface.co/chinhnc/Quyet-1.0-Large)
+(Apache-2.0, Gemma-4-31B + LoRA, tuned cho tiếng Việt) được load ngay trong
+notebook qua `pip install quyet[multi-gpu]`, cùng typed-question contract
+(choice/score/noul → calibrated probabilities).
+
+⚠️ **VRAM**: Large = 62.5GB bf16 → **không vừa 2×T4 (30GB)**. Trên Kaggle dùng
+`TEACHER = "quyet-medium"` (`Quyet-1.0-Medium`, nhẹ hơn) hoặc chạy Large qua
+GGUF/llama.cpp ngoài notebook. Nếu có A100/80GB thì Large chạy thoải mái.
+
+Các teacher API thay thế (cần secret tương ứng):
+
 | Secret | Dùng cho | Lấy ở đâu |
 |---|---|---|
-| `PDECIDER_KEY` | Perplexity Decider v1.1 (27B) | trang API của Perplexity |
-| `QUYET_KEY` | Quyet-1.0-Large | trang/leaderboard của Quyet |
-| `ZAI_API_KEY` | GLM-flash (fallback free-quota) | key zai-coding-cn bạn đang có |
+| `PDECIDER_KEY` | Perplexity Decider v1.1 (27B) — Decision Index 61.56, **vượt Jev (57.9)** | API của Perplexity |
+| `ZAI_API_KEY` | GLM-flash (fallback free-quota) | key zai-coding-cn sẵn có |
 
 5. **Upload Dataset** chứa `eval/eval-set.jsonl` từ repo (61 prompt gold) — hoặc
    để notebook chạy chế độ demo 3 prompt nếu chưa upload.
